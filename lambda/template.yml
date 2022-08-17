@@ -1,0 +1,28 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: 'AWS::Serverless-2016-10-31'
+Description: An Amazon Kinesis stream processor that logs the data being published.
+Resources:
+  connect-lens-publishUtterancesToAppSync:
+    Type: 'AWS::Serverless::Function'
+    Properties:
+      Handler: connect-lens-publishUtterancesToAppSync.handler
+      Runtime: nodejs14.x
+      CodeUri: .
+      Description: An Amazon Kinesis stream processor that logs the data being published.
+      MemorySize: 512
+      Timeout: 600
+      Events:
+        Kinesis1:
+          Type: Kinesis
+          Properties:
+            Stream: 'arn:aws:kinesis:us-east-1:298841451579:stream/connect-demo'
+            # StartingPosition: TRIM_HORIZON
+            # BatchSize: 100
+  # KinesisStream1:
+  #   Type: 'AWS::Kinesis::Stream'
+  #   Properties:
+  #     ShardCount: 1
+  # Outputs:
+  #   TableInfosecretname:
+  #     Description: Name of Table-info secret
+  #     Value: !Ref Tableinfo

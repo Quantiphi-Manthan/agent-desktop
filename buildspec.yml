@@ -12,8 +12,10 @@ phases:
       - npm install
   # Now we want to actually build our React app
   build:
-   commands:
+    commands:
       - npm run build
+      - sam build --template-file lambda/template.yml
+      - sam deploy --guided
 # Artifacts will specify what files will be uploaded to s3
 # This will include all files within the "build" folder
 artifacts:
